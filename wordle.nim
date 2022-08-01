@@ -76,12 +76,14 @@ proc checkLetters(guess, secret: string) =
 
 proc getGuess(prompt, secret: string): string =
   ## ask for a guess to the user
-  stdout.write "guess> "
-  let guess = readline(stdin)
-  if guess.len != secret.len:
-    echo "Not the same length as the secret word.."
-    echo &"secret word's length is {secret.len}"
-    return getGuess(prompt, secret)
+  var guess = ""
+  while(guess == ""):
+    stdout.write "guess> "
+    guess = readline(stdin)
+    if guess.len != secret.len:
+      echo "Not the same length as the secret word.."
+      echo &"secret word's length is {secret.len}"
+      guess = ""
   return guess
 
 proc play(secret: string): bool =
